@@ -27,6 +27,7 @@ async function deleteTask(content) {
   
   <link href="/dist/output.css" rel="stylesheet">
 
+  <!--
   <div class="fixed w-1/6 h-screen bg-nav-bar flex flex-col gap-2 text-center">
     <div class="pt-4 flex self-center">
       <img class="h-7 w-7 ml-2 rounded-full mr-2" src="./assets/pfp.png">
@@ -41,11 +42,12 @@ async function deleteTask(content) {
     <hr class="w-2/3 m-0 self-center">
 
   </div>
+  -->
 
   <div class="flex flex-col justify-center text-center gap-1 m-auto pt-5 w-2/3">
     <div v-if="tasks.length != 0" v-for="[index, task] of tasks.entries()" class="border rounded border-sc-gray p-2 text-left">
-      <input :key="index" type="checkbox" @click="deleteTask(index)" class="w-4 h-4">
       <label class="font-sans ml-3">{{ task.content }}</label>
+      <img src="./assets/plus.svg" alt="Delete task" class="w-6 h-6 float-right hover:cursor-pointer rotate-45" @click="deleteTask(index)">
     </div>
     <div v-else>
       <h1 class="gradiented-background">All set!</h1>
