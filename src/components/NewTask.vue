@@ -10,16 +10,21 @@ const name = ref("");
 async function createNewTask() {
   // Invoke the command with the task content to update the JSON file
   newTask.value = await invoke("new_task", { name: name.value });
+  name.value = "";
   await getTasks();
 };
 
 </script>
 
 <template>
-  
   <div class="fixed inset-x-0 bottom-10">
     <input ref="taskInput" id="new-task-input" v-model="name" placeholder="Enter a new task..." />
-    <button type="button" @click="createNewTask(); this.$refs.taskInput.value='';">Create Task</button>
+    <button class=" " type="button" @click="createNewTask()" :disabled="name === ''" :class="{ 'opacity-40': name == '' }">Create Task</button>
   </div>
-
 </template>
+
+<style>
+.faded {
+    opacity: 80;
+}
+</style>

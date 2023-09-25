@@ -45,7 +45,7 @@ async function deleteTask(content) {
   -->
 
   <div class="flex flex-col justify-center text-center gap-1 m-auto pt-5 w-2/3">
-    <div v-if="tasks.length != 0" v-for="[index, task] of tasks.entries()" class="border rounded border-sc-gray p-2 text-left">
+    <div v-if="tasks.length != 0" v-for="[index, task] of tasks.entries()" class="border rounded-xl p-2 text-left bg-[#F1F2F6]">
       <label class="font-sans ml-3">{{ task.content }}</label>
       <img src="./assets/plus.svg" alt="Delete task" class="w-6 h-6 float-right hover:cursor-pointer rotate-45" @click="deleteTask(index)">
     </div>
