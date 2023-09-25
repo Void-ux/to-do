@@ -45,15 +45,15 @@ async function deleteTask(content) {
   -->
 
   <div class="flex flex-col justify-center text-center gap-1 m-auto pt-5 w-2/3">
-    <div v-if="tasks.length != 0" v-for="[index, task] of tasks.entries()" class="border rounded-xl p-2 text-left bg-[#F1F2F6]">
+    <div v-if="tasks.length != 0" v-for="[index, task] of tasks.entries()" class="border rounded-xl p-2 text-left bg-[#F1F2F6] hover:cursor-pointer hover:brightness-95">
       <label class="font-sans ml-3">{{ task.content }}</label>
       <img src="./assets/plus.svg" alt="Delete task" class="w-6 h-6 float-right hover:cursor-pointer rotate-45" @click="deleteTask(index)">
     </div>
     <div v-else>
       <h1 class="gradiented-background">All set!</h1>
-      <p class="loading">You don't have any tasks to complete</p>
+      <p>You don't have any tasks to complete</p>
     </div>
-    
+
     <NewTask/>
   </div>
 
@@ -109,19 +109,5 @@ async function deleteTask(content) {
   100% {
     background-position: left;
   }
-}
-
-.loading::after {
-  display: inline-block;
-  animation: dots steps(1,end) 4s infinite;
-  content: '';
-}
-
-@keyframes dots {
-  0%   { content: ''; }
-  25%  { content: '.'; }
-  50%  { content: '..'; }
-  75%  { content: '...'; }
-  100% { content: ''; }
 }
 </style>
