@@ -14,9 +14,20 @@ struct Task {
     created: u64
 }
 
+fn tasks_path() -> &'static str {
+    if cfg!(windows) {
+        return r#"C:\Users\MS1\Desktop\tasks.json"#;
+    } else if cfg!(target_os = "macos") {
+        return r#"/Users/dan/tasks.json"#;
+    } else {
+        return ""
+    }
+}
+
+
 #[tauri::command]
 fn new_task(name: &str) {
-    let file = File::open(r#"C:\Users\MS1\Desktop\tasks.json"#).unwrap();
+    let file = File::open(tasks_path()).unwrap();
     let mut tasks: Vec<Task> = serde_json::from_reader(&file).unwrap();
     println!("Prior to modification: {:?}", tasks);
     let task = Task {
@@ -26,13 +37,13 @@ fn new_task(name: &str) {
     tasks.push(task);
     println!("Post modification: {:?}", tasks);
 
-    let file = File::create(r#"C:\Users\MS1\Desktop\tasks.json"#).unwrap();
+    let file = File::create(tasks_path()).unwrap();
     serde_json::to_writer(&file, &tasks).expect("...");
 }
 
 #[tauri::command]
 fn get_tasks() -> String {
-    let data = std::fs::read_to_string(r#"C:\Users\MS1\Desktop\tasks.json"#).unwrap();
+    let data = std::fs::read_to_string(tasks_path()).unwrap();
     
     println!("{}", data);
 
@@ -41,11 +52,11 @@ fn get_tasks() -> String {
 
 #[tauri::command]
 fn delete_task(index: usize) {
-    let file = File::open(r#"C:\Users\MS1\Desktop\tasks.json"#).unwrap();
+    let file = File::open(tasks_path()).unwrap();
     let mut tasks: Vec<Task> = serde_json::from_reader(&file).unwrap();
     tasks.remove(index);
 
-    let file = File::create(r#"C:\Users\MS1\Desktop\tasks.json"#).unwrap();
+    let file = File::create(tasks_path()).unwrap();
     serde_json::to_writer(&file, &tasks).expect("...");
 }
 
