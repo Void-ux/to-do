@@ -1,32 +1,26 @@
 <script setup>
-
-import NewTask from "./components/NewTask.vue";
+import NewTask from "./components/CreateTask.vue";
 import { ref, provide } from "vue";
 import { invoke } from "@tauri-apps/api/tauri";
 
 let tasks = ref("");
 
 async function getTasks() {
-  const data = await invoke("get_tasks");
-  tasks.value = JSON.parse(data);
+  tasks.value = await invoke("get_tasks");
 };
 
-// Provide the function to the NewTask component to
+// Provide the function to the CreateTask component to
 // refresh the task list when a new task is submitted
 provide('get-tasks', getTasks);
 getTasks();
 
-async function deleteTask(content) {
-  await invoke("delete_task", {"index": content});
+async function deleteTask(id) {
+  await invoke("delete_task", {"id": id});
   await getTasks();
 };
-
 </script>
 
 <template>
-  
-  <link href="/dist/output.css" rel="stylesheet">
-
   <!--
   <div class="fixed w-1/6 h-screen bg-nav-bar flex flex-col gap-2 text-center">
     <div class="pt-4 flex self-center">
@@ -45,9 +39,9 @@ async function deleteTask(content) {
   -->
 
   <div class="flex flex-col justify-center text-center gap-1 m-auto pt-5 w-2/3">
-    <div v-if="tasks.length != 0" v-for="[index, task] of tasks.entries()" class="border rounded-xl p-2 text-left bg-[#F1F2F6] hover:cursor-pointer hover:brightness-95">
-      <label class="font-sans ml-3">{{ task.content }}</label>
-      <img src="./assets/plus.svg" alt="Delete task" class="w-6 h-6 float-right hover:cursor-pointer rotate-45" @click="deleteTask(index)">
+    <div v-if="tasks.length != 0" v-for="[id, title, description] of tasks" class="border rounded-xl p-2 text-left bg-[#F1F2F6] hover:cursor-pointer hover:brightness-95">
+      <label class="font-sans ml-3">{{ title }}</label>
+      <img src="./assets/plus.svg" alt="Delete task" class="w-6 h-6 float-right hover:cursor-pointer rotate-45" @click="deleteTask(id)">
     </div>
     <div v-else>
       <h1 class="gradiented-background">All set!</h1>
@@ -56,7 +50,6 @@ async function deleteTask(content) {
 
     <NewTask/>
   </div>
-
 </template>
 
 <style>
