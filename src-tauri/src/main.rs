@@ -16,11 +16,11 @@ struct Task {
 
 fn tasks_path() -> &'static str {
     if cfg!(windows) {
-        return r#"C:\Users\MS1\Desktop\tasks.json"#;
+        r#"C:\Users\MS1\Desktop\tasks.json"#
     } else if cfg!(target_os = "macos") {
-        return r#"/Users/dan/tasks.json"#;
+        r#"/Users/dan/tasks.json"#
     } else {
-        return ""
+        ""
     }
 }
 
