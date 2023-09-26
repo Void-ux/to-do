@@ -22,7 +22,7 @@ async function createNewTask() {
 <template>
   <div class="fixed inset-x-0 bottom-10">
     <input ref="taskInput" id="new-task-input" v-model="title" placeholder="Enter a new task..." @keyup.enter="createNewTask()" />
-    <button class=" " type="button" @click="createNewTask()" :disabled="title === ''" :class="{ 'opacity-40': title == '' }">Create Task</button>
+    <button class=" " type="button" @click="createNewTask()" :disabled="title === ''" :class="{ 'opacity-40': title == '', 'gradiented-background': title !== '' }">Create Task</button>
   </div>
 </template>
 

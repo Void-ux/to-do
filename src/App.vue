@@ -44,7 +44,7 @@ async function deleteTask(id) {
       <img src="./assets/plus.svg" alt="Delete task" class="w-6 h-6 float-right hover:cursor-pointer rotate-45" @click="deleteTask(id)">
     </div>
     <div v-else>
-      <h1 class="gradiented-background">All set!</h1>
+      <h1 class="gradiented-background text-6xl leading-[72px]">All set!</h1>
       <p>You don't have any tasks to complete</p>
     </div>
 
@@ -70,8 +70,6 @@ async function deleteTask(id) {
 }
 
 .gradiented-background {
-  font-size: 72px;
-  line-height: 72px;
   margin: 0px;
   font-weight: 900;
   background: linear-gradient(45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
