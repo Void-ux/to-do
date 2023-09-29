@@ -8,9 +8,6 @@ module.exports = {
         'hr': '#9696961a',
         'nav-bar': '#1A1A1A',
       },
-      'fontSize': {
-        'xl': ['72px', '64px']
-      },
     },
   },
   plugins: [],
