@@ -106,13 +106,13 @@ onUnmounted(() => {
         class="flex w-5/6 h-20 rounded-lg p-2 text-left hover:brightness-95 partially-inset-shadow justify-between"
       >
         <div class="flex flex-col justify-evenly h-full ml-3">
-          <div class="flex gap-1">
-            <img src="./assets/lock.svg" class=w-3>
+          <div class="flex gap-1 items-center">
+            <font-awesome-icon icon="fa-solid fa-lock" class="w-3 mr-0.5" />
             <span class="text-[#7A7A7A] text-sm">My Lists > {{ currentTaskList[1] }}</span>
           </div>
           <p class="text-xl font-medium">{{ title }}</p>
         </div>
-        <img src="./assets/plus.svg" class="float-right w-6 cursor-pointer rotate-45" @click="deleteTask(id)">
+        <font-awesome-icon icon="fa-regular fa-circle-xmark" class="h-6 float-right cursor-pointer my-auto mr-2" @click="deleteTask(id)" />
       </div>
 
       <CreateTask />

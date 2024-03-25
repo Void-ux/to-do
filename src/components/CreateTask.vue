@@ -22,10 +22,7 @@ async function createNewTask() {
 <template>
   <div class="inset-x-0 bottom-10 m-auto mb-6 w-5/6 h-[46px] rounded-lg outset-shadow gradiented-border">
     <div class="px-2 w-full h-full flex gap-2 items-center">
-      <div class="ml-7 rotate-90">
-        <div class="absolute w-1 h-5 bg-[#7a7a7a] rounded-3xl"></div>
-        <div class="absolute w-1 h-5 bg-[#7a7a7a] rounded-3xl rotate-90"></div>
-      </div>
+      <font-awesome-icon icon="fa-solid fa-plus ml-7" class="h-5" />
       <input class="text-neutral-500 text-xl font-medium tracking-wider outline-none" ref="taskInput" v-model="title" placeholder="Add a task" @keyup.enter="createNewTask()" />
     </div>
   </div>
