@@ -5,37 +5,46 @@ import { invoke } from "@tauri-apps/api/tauri";
 
 let taskLists = ref(null);
 let currentTaskList = ref(null);
+let tasks = ref("");
+
 async function getTaskLists() {
-  taskLists.value = await invoke("get_task_lists")
+  let lists = await invoke("get_task_lists");
+  taskLists.value = lists;
+  console.log(`Found ${lists.length} task lists (${lists})`)
 }
-getTaskLists();
-// When no task lists exist
-currentTaskList.value = currentTaskList.value !== null ? taskLists.value[0] : null;
-provide('currentTaskList', currentTaskList)
+
+async function getTasks() {
+  if (currentTaskList.value !== null) {
+    tasks.value = await invoke("get_tasks", { taskListId: currentTaskList.value[0] });    
+  } else {
+    tasks.value = [];
+  }
+};
 
 async function setCurrentTaskList(taskList) {
   currentTaskList.value = taskList;
   await getTasks();
 }
 
-let tasks = ref("");
-async function getTasks() {
-  tasks.value = await invoke("get_tasks", { taskListId: currentTaskList.value[0] });
-};
-getTasks();
-// Provide the function to the CreateTask component to
-// refresh the task list when a new task is submitted
-provide('getTasks', getTasks);
+async function createTaskList() {
+  await invoke("create_task_list")
+  await getTaskLists();
+}
 
 async function deleteTask(id) {
   await invoke("delete_task", {"id": id});
   await getTasks();
 };
 
-async function createTaskList() {
-  await getTaskLists();
-}
+getTaskLists();
+// When no task lists exist
+currentTaskList.value = currentTaskList.value !== null ? taskLists.value[0] : null;
+provide('currentTaskList', currentTaskList)
 
+getTasks();
+// Provide the function to the CreateTask component to
+// refresh the task list when a new task is submitted
+provide('getTasks', getTasks);
 
 const day = ref(null);
 const date = ref(null);
@@ -58,8 +67,6 @@ onUnmounted(() => {
   clearInterval(nIntervId);
   nIntervId = null;
 })
-
-
 </script>
 
 <template>
